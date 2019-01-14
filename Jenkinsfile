@@ -12,8 +12,10 @@ pipeline {
                 echo 'Building...'
 				sh 'mvn clean test package'
             }
-			success {
-				echo "Built successfully"
+			post {
+                success {
+					echo "Built successfully"
+				}
 			}
         }
         stage('Test') {
