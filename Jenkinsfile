@@ -3,7 +3,11 @@ pipeline {
         kubernetes {
             label 'branch1'
             defaultContainer 'branch1'
-            yamlFile 'branch1-pod.yaml'
+            configFileProvider(
+                [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                sh 'mvn -s $MAVEN_SETTINGS clean package'
+                yamlFile 'branch1-pod.yaml'
+            }
         }
     }
     stages {
