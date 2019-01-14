@@ -4,9 +4,8 @@ pipeline {
             label 'branch1'
             defaultContainer 'branch1'
             configFileProvider(
-                [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-                sh 'mvn -s $MAVEN_SETTINGS clean package'
-                yamlFile 'branch1-pod.yaml'
+                [configFile(fileId: 'branch1-pod.yaml', variable: 'BRANCH1-POD')]) {
+                yamlFile $BRANCH1-POD
             }
         }
     }
