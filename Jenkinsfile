@@ -1,4 +1,5 @@
 pipeline {
+    sh 'sleep 600000'
     agent {
         kubernetes {
             label 'branch1'
