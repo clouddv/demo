@@ -1,15 +1,9 @@
 pipeline {
-    sh 'sleep 600000'
-    agent {
-        kubernetes {
-            label 'branch1'
-            defaultContainer 'branch1'
-            yamlFile 'branch1-pod.yaml'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
+                sh 'sleep 600000'
                 echo 'Building...'
             }
         }
