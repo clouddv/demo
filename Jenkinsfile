@@ -11,8 +11,14 @@ pipeline {
             steps {
                 echo 'Building...'
 				sh 'mvn clean test package'
+				configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+					sh 'mvn -s $MAVEN_SETTINGS deploy'
+				}
             }
 			post {
+				always {
+					echo "Do something"
+				}
                 success {
 					echo "Built successfully"
 				}
