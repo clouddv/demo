@@ -26,6 +26,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
+				input message: 'Confirm to continue? (Click "Proceed" to continue)'
             }
         }
         stage('Deploy') {
