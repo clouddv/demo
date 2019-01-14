@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'sleep 600000'
                 echo 'Building...'
             }
         }
