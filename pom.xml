@@ -20,4 +20,12 @@
     </dependencies>
     
     <name>demo</name>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>nfs-snapshots</name>
+			<url>http://172.16.33.200:8081/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
