@@ -10,7 +10,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-				sh 'mvn clean test package deploy'
+				configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+					sh 'mvn -s $MAVEN_SETTINGS clean test package deploy'
+				}
             }
         }
         stage('Test') {
