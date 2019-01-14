@@ -16,7 +16,7 @@ pipeline {
             }
 			post {
 				always {
-					echo "Do something"
+					junit 'target/surefire-reports/TEST-*.xml'
 				}
                 success {
 					echo "Built successfully"
