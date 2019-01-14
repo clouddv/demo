@@ -3,16 +3,12 @@ pipeline {
         kubernetes {
             label 'branch1'
             defaultContainer 'branch1'
-            configFileProvider(
-                [configFile(fileId: 'branch1-pod.yaml', variable: 'BRANCH1-POD')]) {
-                yamlFile $BRANCH1-POD
-            }
+            yamlFile 'pod.yaml'
         }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'sleep 600000'
                 echo 'Building...'
             }
         }
