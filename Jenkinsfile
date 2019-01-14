@@ -21,16 +21,12 @@ pipeline {
 			post {
                 success {
 					echo "Built successfully"
-					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-						sh "mvn deploy:deploy-file -s $MAVEN_SETTINGS \
-							-DgroupId=com.mycompany \
-							-DartifactId=demo \
-							-Dversion=${env.VERSION}-${env.BUILD_NUMBER} \
-							-DgeneratePom=false \
-							-Dpackaging=jar \
-							-Dfile=./target/demo-${env.VERSION}-SNAPSHOT.jar \
-							-Durl=${env.REPO_URL}"}
-						}
+					sh "mvn deploy:deploy-file -DgroupId=com.mycompany \
+						-DartifactId=demo \
+						-Dversion=${env.VERSION}-${env.BUILD_NUMBER} \
+						-Dpackaging=jar \
+						-Dfile=./target/demo-${env.VERSION}-SNAPSHOT.jar \
+						-Durl=${env.REPO_URL}"}
 					}
 				}
 			}
