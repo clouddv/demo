@@ -26,14 +26,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				mvn sonar:sonar \
-					-Dsonar.host.url=http://172.16.33.100:9000 \
-					-Dsonar.login=clouddv
-				input message: 'Confirm to continue? (Click "Proceed" to continue)'
+				mvn sonar:sonar -Dsonar.host.url=http://172.16.33.100:9000 -Dsonar.login=clouddv
             }
         }
         stage('Deploy') {
             steps {
+				input message: 'Confirm to continue? (Click "Proceed" to continue)'
                 echo 'Deploying....'
             }
         }
