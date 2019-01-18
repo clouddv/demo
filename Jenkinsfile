@@ -28,6 +28,14 @@ pipeline {
                 echo 'Testing...'
 				sh 'mvn sonar:sonar -Dsonar.host.url=http://172.16.33.100:9000 -Dsonar.login=admin -Dsonar.password=12345667'
             }
+			post {
+				always {
+					junit 'target/surefire-reports/TEST-*.xml'
+				}
+                success {
+					echo "Test successfully"
+				}
+			}
         }
         stage('Deploy') {
             steps {
