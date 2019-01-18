@@ -26,7 +26,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				sh 'mvn sonar:sonar -Dsonar.host.url=http://172.16.33.100:9000 -Dsonar.login=clouddv'
+				sh 'mvn sonar:sonar -Dsonar.host.url=http://172.16.33.100:9000 -Dsonar.login=admin -Dsonar.password=12345667'
             }
         }
         stage('Deploy') {
