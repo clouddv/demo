@@ -41,7 +41,7 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
-					sh 'mvn deploy:deploy-file -DgroupId=com.mycompany \
+					sh 'mvn -s $MAVEN_SETTINGS deploy:deploy-file -DgroupId=com.mycompany \
 						-DartifactId=demo \
 						-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
 						-Dpackaging=jar \
