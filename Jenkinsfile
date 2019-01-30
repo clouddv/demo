@@ -39,7 +39,7 @@ pipeline {
             }
 			post {
 				always {
-					
+					echo "Test successfully"
 				}
                 success {
 					echo "Test successfully"
