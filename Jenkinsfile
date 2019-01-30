@@ -34,6 +34,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
+				sh 'printenv'
 				sh 'mvn sonar:sonar -Dsonar.host.url="${env.SONAR_URL}" -Dsonar.login="${env.SONAR_USERNAME}" -Dsonar.password="${env.SONAR_PASSWORD}"'
             }
 			post {
