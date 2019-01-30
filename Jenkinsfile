@@ -41,7 +41,6 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
-					sh 'sleep 6000000'
 					sh 'mvn -s $MAVEN_SETTINGS deploy:deploy-file -DgroupId=com.mycompany \
 						-DartifactId=demo \
 						-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
