@@ -35,11 +35,11 @@ pipeline {
             steps {
                 echo 'Testing...'
 				sh 'printenv'
-				sh 'mvn sonar:sonar -Dsonar.host.url="${env.SONAR_URL}" -Dsonar.login="${env.SONAR_USERNAME}" -Dsonar.password="${env.SONAR_PASSWORD}"'
+				sh 'mvn sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_USERNAME" -Dsonar.password="$SONAR_PASSWORD"'
             }
 			post {
 				always {
-					junit 'target/surefire-reports/TEST-*.xml'
+					
 				}
                 success {
 					echo "Test successfully"
