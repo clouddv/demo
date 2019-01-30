@@ -41,6 +41,7 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
+					sh 'sleep 600000'
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
 						sh 'mvn deploy:deploy-file -DgroupId=com.mycompany \
 							-DartifactId=demo \
