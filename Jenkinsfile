@@ -46,7 +46,7 @@ pipeline {
 						-DartifactId=demo \
 						-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
 						-Dpackaging=jar \
-						-Dfile=./target/demo.jar \
+						-Dfile=./target/demo-1.0-SNAPSHOT.jar \
 						-Durl=$REPO_URL'
 				}
 			}
