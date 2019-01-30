@@ -39,7 +39,7 @@ pipeline {
             }
 			post {
 				always {
-					echo "Test successfully"
+					junit 'target/surefire-reports/TEST-*.xml'
 				}
                 success {
 					echo "Test successfully"
