@@ -7,7 +7,7 @@ pipeline {
         }
     }
 	environment {
-        REPO_URL = "http://172.16.33.200:8081/artifactory/libs-snapshot-local"
+        REPO_URL = "http://172.16.33.200:8081/artifactory/demo"
         REPO_USERNAME = "admin"
         REPO_PASSWORD = "12345667"
 		SONAR_URL = "http://172.16.33.100:9000"
@@ -50,19 +50,6 @@ pipeline {
             steps {
 				input message: 'Confirm to continue? (Click "Proceed" to continue)'
                 echo 'Deploying....'
-				sh "mkdir -p tmp"
-                script {
-                    def server = Artifactory.newServer url: "$REPO_URL", username: "$REPO_USERNAME", password: "$REPO_PASSWORD"
-                    def downloadSpec = """{
-                     "files": [
-                      {
-                          "pattern": "libs-snapshot-local/com/mycompany/demo/1.0-SNAPSHOT/demo-1.0-20190114.100552-1.jar",
-                          "target": "$WORKSPACE/tmp/"
-                        }
-                     ]
-                    }"""
-                    server.download(downloadSpec)
-                }
             }
         }
     }
