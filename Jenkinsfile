@@ -6,6 +6,14 @@ pipeline {
             yamlFile 'pod.yaml'
         }
     }
+	environment {
+        REPO_URL = "http://172.16.33.200:8081/artifactory/libs-snapshot-local"
+        REPO_USERNAME = "admin"
+        REPO_PASSWORD = "12345667"
+		SONAR_URL = "http://172.16.33.100:9000"
+        SONAR_USERNAME = "admin"
+        SONAR_PASSWORD = "12345667"
+    }
     stages {
         stage('Build') {
             steps {
@@ -26,7 +34,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				sh 'mvn sonar:sonar -Dsonar.host.url=http://172.16.33.100:9000 -Dsonar.login=admin -Dsonar.password=12345667'
+				sh 'mvn sonar:sonar -Dsonar.host.url="${env.SONAR_URL}" -Dsonar.login="${env.SONAR_USERNAME}" -Dsonar.password="${env.SONAR_PASSWORD}"'
             }
 			post {
 				always {
