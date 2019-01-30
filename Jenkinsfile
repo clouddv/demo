@@ -49,6 +49,7 @@ pipeline {
 							-Dfile=./target/demo-1.0-SNAPSHOT.jar \
 							-DrepositoryId=$MAVEN_SETTINGS \
 							-DgeneratePom=false \
+							-Dusername=admin -Dpassword=12345667 \
 							-Durl=$REPO_URL'
 					}
 				}
