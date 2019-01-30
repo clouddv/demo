@@ -41,12 +41,14 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
-					sh 'mvn -s $MAVEN_SETTINGS deploy:deploy-file -DgroupId=com.mycompany \
-						-DartifactId=demo \
-						-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
-						-Dpackaging=jar \
-						-Dfile=./target/demo-1.0-SNAPSHOT.jar \
-						-Durl=$REPO_URL'
+					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+						sh 'mvn -s $MAVEN_SETTINGS deploy:deploy-file -DgroupId=com.mycompany \
+							-DartifactId=demo \
+							-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
+							-Dpackaging=jar \
+							-Dfile=./target/demo-1.0-SNAPSHOT.jar \
+							-Durl=$REPO_URL'
+					}
 				}
 			}
         }
