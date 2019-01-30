@@ -18,7 +18,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+				configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+					sh 'mvn -s $MAVEN_SETTINGS clean test package deploy'
+				}
             }
+			post {
+				always {
+					junit 'target/surefire-reports/TEST-*.xml'
+				}
+                success {
+					echo "Built successfully"
+				}
+			}
         }
         stage('Test') {
             steps {
