@@ -33,7 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				sh 'mvn sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_USERNAME" -Dsonar.password="$SONAR_PASSWORD"'
+				sh 'mvn test sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_USERNAME" -Dsonar.password="$SONAR_PASSWORD"'
             }
 			post {
 				always {
@@ -41,17 +41,8 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
-					sh 'sleep 600000'
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-						sh 'mvn deploy:deploy-file -DgroupId=com.mycompany \
-							-DartifactId=demo \
-							-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
-							-Dpackaging=jar \
-							-Dfile=./target/demo-1.0-SNAPSHOT.jar \
-							-DrepositoryId=$MAVEN_SETTINGS \
-							-DgeneratePom=false \
-							-Dusername=admin -Dpassword=12345667 \
-							-Durl=$REPO_URL'
+						sh 'mvn -s $MAVEN_SETTINGS deploy'
 					}
 				}
 			}

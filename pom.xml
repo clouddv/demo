@@ -20,4 +20,17 @@
     </dependencies>
     
     <name>demo</name>
+	
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>nfs-releases</name>
+			<url>http://172.16.33.200:8081/artifactory/demo</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>nfs-snapshots</name>
+			<url>http://172.16.33.200:8081/artifactory/demo</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
