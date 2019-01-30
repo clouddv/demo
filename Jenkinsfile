@@ -18,9 +18,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-				configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-					sh 'mvn -s $MAVEN_SETTINGS clean test package deploy'
-				}
+				//sh 'printenv'
+				sh 'mvn clean package'
             }
 			post {
 				always {
@@ -34,7 +33,6 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				sh 'printenv'
 				sh 'mvn sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_USERNAME" -Dsonar.password="$SONAR_PASSWORD"'
             }
 			post {
@@ -43,6 +41,12 @@ pipeline {
 				}
                 success {
 					echo "Test successfully"
+					sh 'mvn deploy:deploy-file -DgroupId=com.mycompany \
+						-DartifactId=demo \
+						-Dversion=1.0-SNAPSHOT-$BUILD_NUMBER \
+						-Dpackaging=jar \
+						-Dfile=./target/demo.jar
+						-Durl=$REPO_URL'
 				}
 			}
         }
