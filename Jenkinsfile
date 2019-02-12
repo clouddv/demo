@@ -48,19 +48,11 @@ pipeline {
 			}
         }
         stage('Deploy') {
+			agent { label 'docker' }
             steps {
 				input message: 'Confirm to continue? (Click "Proceed" to continue)'
                 echo 'Deploying....'
-				def server = Artifactory.newServer url: '$REPO_URL', username: '$REPO_USERNAME', password: '$REPO_PASSWORD'
-				def downloadSpec = """{
-				 "files": [
-				  {
-					  "pattern": "*.jar",
-					  "target": "$WORKSPACE/tmp/"
-					}
-				 ]
-				}"""
-				server.download(downloadSpec)
+				
             }
         }
     }
