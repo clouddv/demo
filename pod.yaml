@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: branch2
+spec:
+  containers:
+  - name: branch2
+    image: nginx
+    command:
+    - cat
+    tty: true

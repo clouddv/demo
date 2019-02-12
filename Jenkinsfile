@@ -1,5 +1,11 @@
 pipeline {
-    agent { node { label 'master' } }
+    agent {
+        kubernetes {
+            label 'branch2'
+            defaultContainer 'branch2'
+            yamlFile 'pod.yaml'
+        }
+    }
     stages {
         stage('Build') {
             steps {
