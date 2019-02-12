@@ -42,3 +42,4 @@ $ ./build.sh --help
 
 You can also pack and push the Docker image and Helm chart.
 
+[READ MORE](https://dzone.com/articles/easily-automate-your-cicd-pipeline-with-jenkins-he)
