@@ -104,7 +104,7 @@ pipeline {
 
     options {
         // Build auto timeout
-        timeout(time: 1, unit: 'MINUTES')
+        timeout(time: 60, unit: 'MINUTES')
     }
 
     // Some global default variables

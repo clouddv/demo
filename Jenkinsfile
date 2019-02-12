@@ -101,6 +101,11 @@ def curlTest (namespace, out) {
     This is the main pipeline section with the stages of the CI/CD
  */
 pipeline {
+	options {
+        // Build auto timeout
+        timeout(time: 60, unit: 'MINUTES')
+    }
+	
     agent {
         kubernetes {
             label 'branch2'
