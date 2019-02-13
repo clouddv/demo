@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: branch2
-    image: nginx
+    image: nginx:latest
     command:
     - cat
     tty: true

@@ -141,42 +141,6 @@ pipeline {
         }
     }
     stages {
-		////////// Step 1 //////////
-        stage('Git clone and setup') {
-            steps {
-                echo "Check out acme code"
-                git branch: "master",
-                        credentialsId: 'eldada-bb',
-                        url: 'https://git.jfrog.info/scm/~eldada/acme-ci-cd.git'
-
-                // Validate kubectl
-                sh "kubectl cluster-info"
-
-                // Init helm client
-                sh "helm init"
-
-                // Make sure parameters file exists
-                script {
-                    if (! fileExists("${PARAMETERS_FILE}")) {
-                        echo "ERROR: ${PARAMETERS_FILE} is missing!"
-                    }
-                }
-
-                // Load Docker registry and Helm repository configurations from file
-                load "${JENKINS_HOME}/parameters.groovy"
-
-                echo "DOCKER_REG is ${DOCKER_REG}"
-                echo "HELM_REPO  is ${HELM_REPO}"
-
-                // Define a unique name for the tests container and helm release
-                script {
-                    branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
-                    ID = "${IMAGE_NAME}-${DOCKER_TAG}-${branch}"
-
-                    echo "Global ID set to ${ID}"
-                }
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Building...'
