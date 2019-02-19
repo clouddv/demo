@@ -28,10 +28,10 @@ pipeline {
 			steps {
 				//sh 'printenv'
 				script{
-					def commitId = "$GIT_COMMIT"
-					ENV_GIT_COMMIT = commitId.substring(30)
+					def commitId = "${GIT_COMMIT}"
+					ENV_GIT_COMMIT = commitId.substring(35)
 				}
-				echo "$GIT_COMMIT"
+				echo "${GIT_COMMIT}"
 				echo "${ENV_GIT_COMMIT}"
 			}
         }
@@ -54,7 +54,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				sh 'mvn test sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_USERNAME" -Dsonar.password="$SONAR_PASSWORD"'
+				sh 'mvn test sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="${SONAR_USERNAME}" -Dsonar.password="${SONAR_PASSWORD}"'
             }
 			post {
 				always {
@@ -63,7 +63,7 @@ pipeline {
                 success {
 					echo "Test successfully"
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-						sh 'mvn -s $MAVEN_SETTINGS deploy'
+						sh 'mvn -s ${MAVEN_SETTINGS} deploy'
 					}
 					//container ('docker') {
 					//	def registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
