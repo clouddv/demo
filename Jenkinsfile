@@ -15,6 +15,14 @@ pipeline {
         SONAR_PASSWORD = "12345667"
     }
     stages {
+		options {
+			// Build auto timeout
+			timeout(time: 60, unit: 'MINUTES')
+		}
+		parameters {
+			string (name: 'GIT_BRANCH',           defaultValue: 'branch2',  description: 'Git branch to build')
+			booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
+		}
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -48,7 +56,6 @@ pipeline {
 			}
         }
         stage('Deploy') {
-			agent { label 'docker' }
             steps {
 				input message: 'Confirm to continue? (Click "Proceed" to continue)'
                 echo 'Deploying....'
