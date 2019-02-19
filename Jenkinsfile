@@ -13,6 +13,7 @@ pipeline {
 		SONAR_URL = "http://172.16.33.100:9000"
         SONAR_USERNAME = "admin"
         SONAR_PASSWORD = "12345667"
+		ENV_GIT_COMMIT = ""
     }
 	options {
 		// Build auto timeout
@@ -28,9 +29,10 @@ pipeline {
 				//sh 'printenv'
 				script{
 					def commitId = "$GIT_COMMIT"
-					echo commitId.substring(5)
+					ENV_GIT_COMMIT = commitId.substring(30)
 				}
 				echo "$GIT_COMMIT"
+				echo ${ENV_GIT_COMMIT}
 			}
         }
 		/*
