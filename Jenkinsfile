@@ -24,7 +24,9 @@ pipeline {
 	}
     stages {
         stage ('Extract') {
-            sh 'printenv'
+			steps {
+				sh 'printenv'
+			}
         }
         stage('Build') {
             steps {
