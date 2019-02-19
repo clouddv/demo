@@ -28,11 +28,12 @@ pipeline {
 				//sh 'printenv'
 				script{
 					def commitId = "$GIT_COMMIT"
-					echo commitId
+					echo commitId.substring(5)
 				}
 				echo "$GIT_COMMIT"
 			}
         }
+		/*
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -77,6 +78,6 @@ pipeline {
                 echo 'Deploying....'
 				
             }
-        }
+        }*/
     }
 }
