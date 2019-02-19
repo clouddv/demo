@@ -32,7 +32,7 @@ pipeline {
 					ENV_GIT_COMMIT = commitId.substring(30)
 				}
 				echo "$GIT_COMMIT"
-				echo ${ENV_GIT_COMMIT}
+				echo "${ENV_GIT_COMMIT}"
 			}
         }
 		/*
