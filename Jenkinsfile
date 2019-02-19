@@ -37,7 +37,7 @@ pipeline {
 				echo "${GIT_COMMIT}"
 				echo "${ENV_GIT_COMMIT}"
 				
-				sh 'mvn clean package'
+				sh 'mvn clean test package'
             }
 			post {
 				always {
