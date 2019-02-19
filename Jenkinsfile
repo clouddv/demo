@@ -29,6 +29,7 @@ pipeline {
 				script{
 					def commitId = "$GIT_COMMIT"
 				}
+				echo $GIT_COMMIT
 				echo $commitId
 			}
         }
