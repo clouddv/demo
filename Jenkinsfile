@@ -23,6 +23,12 @@ pipeline {
 		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
 	}
     stages {
+		def commitId
+        stage ('Extract') {
+            checkout scm
+            commitId = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+			echo commitId
+        }
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -52,6 +58,12 @@ pipeline {
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
 						sh 'mvn -s $MAVEN_SETTINGS deploy'
 					}
+					//container ('docker') {
+					//	def registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
+					//	repository = "${registryIp}:80/hello"
+					//	sh "docker build -t ${repository}:${commitId} ."
+					//	sh "docker push ${repository}:${commitId}"
+					//}
 				}
 			}
         }
