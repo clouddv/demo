@@ -22,10 +22,6 @@ pipeline {
 		string (name: 'GIT_BRANCH',           defaultValue: 'branch2',  description: 'Git branch to build')
 		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
 	}
-	define {
-		def A = "$GIT_COMMIT"
-		def B = "ABC"
-    }
     stages {
         stage ('Extract') {
 			steps {
@@ -35,8 +31,6 @@ pipeline {
 				}
 				echo "$GIT_COMMIT"
 				echo "$commitId"
-				echo "$A"
-				echo "$B"
 			}
         }
         stage('Build') {
