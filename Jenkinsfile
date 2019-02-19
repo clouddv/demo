@@ -26,7 +26,7 @@ pipeline {
         stage ('Extract') {
 			steps {
 				//sh 'printenv'
-				echo $GIT_COMMIT
+				echo "$GIT_COMMIT"
 			}
         }
         stage('Build') {
