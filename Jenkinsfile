@@ -25,21 +25,18 @@ pipeline {
 		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
 	}
     stages {
-        stage ('Extract') {
-			steps {
+        stage('Build') {
+            steps {
+                echo 'Building...'
 				//sh 'printenv'
+				
 				script{
 					def commitId = "${GIT_COMMIT}"
 					ENV_GIT_COMMIT = commitId.substring(34)
 				}
 				echo "${GIT_COMMIT}"
 				echo "${ENV_GIT_COMMIT}"
-			}
-        }
-        stage('Build') {
-            steps {
-                echo 'Building...'
-				//sh 'printenv'
+				
 				sh 'mvn clean package'
             }
 			post {
