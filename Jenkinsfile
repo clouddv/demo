@@ -33,11 +33,9 @@ pipeline {
 					ENV_GIT_COMMIT = commitId.substring(34)
 				}
 				echo "${GIT_COMMIT}"
-				sleep 600000
 				echo "${ENV_GIT_COMMIT}"
 			}
         }
-		/*
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -50,6 +48,7 @@ pipeline {
 				}
                 success {
 					echo "Built successfully"
+					sleep 600000
 				}
 			}
         }
@@ -82,6 +81,6 @@ pipeline {
                 echo 'Deploying....'
 				
             }
-        }*/
+        }
     }
 }
