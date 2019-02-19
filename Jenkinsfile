@@ -48,7 +48,11 @@ pipeline {
 				}
                 success {
 					echo "Built successfully"
-					sleep 600000
+					container(name: 'kaniko', shell: '/busybox/sh') {
+						sh '''#!/busybox/sh
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=mydockerregistry:5000/myorg/myimage
+						'''
+					}
 				}
 			}
         }
