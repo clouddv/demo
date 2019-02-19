@@ -13,6 +13,7 @@ pipeline {
 		SONAR_URL = "http://172.16.33.100:9000"
         SONAR_USERNAME = "admin"
         SONAR_PASSWORD = "12345667"
+		
 		ENV_GIT_COMMIT = ""
     }
 	options {
@@ -29,9 +30,10 @@ pipeline {
 				//sh 'printenv'
 				script{
 					def commitId = "${GIT_COMMIT}"
-					ENV_GIT_COMMIT = commitId.substring(35)
+					ENV_GIT_COMMIT = commitId.substring(34)
 				}
 				echo "${GIT_COMMIT}"
+				sleep 600000
 				echo "${ENV_GIT_COMMIT}"
 			}
         }
