@@ -28,6 +28,7 @@ pipeline {
 				//sh 'printenv'
 				script{
 					def commitId = "$GIT_COMMIT"
+					echo commitId
 				}
 				echo "$GIT_COMMIT"
 			}
