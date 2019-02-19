@@ -4,7 +4,7 @@ metadata:
   name: branch1
 spec:
   containers:
-  - name: branch1
+  - name: maven
     image: maven:3.3.9-jdk-8-alpine
     command:
     - cat

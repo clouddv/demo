@@ -2,7 +2,7 @@ pipeline {
     agent {
         kubernetes {
             label 'branch1'
-            defaultContainer 'branch1'
+            defaultContainer 'maven'
             yamlFile 'pod.yaml'
         }
     }
@@ -45,7 +45,11 @@ pipeline {
 				}*/
                 success {
 					echo "Built successfully"
-					sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=http://172.16.33.100:8081/repository/clouddv-docker'
+					container(name: 'kaniko', shell: '/busybox/sh') {
+						sh '''#!/busybox/sh
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=mydockerregistry:5000/myorg/myimage
+						'''
+					}
 				}
 			}
         }
@@ -63,12 +67,6 @@ pipeline {
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
 						sh 'mvn -s ${MAVEN_SETTINGS} deploy'
 					}
-					//container ('docker') {
-					//	def registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
-					//	repository = "${registryIp}:80/hello"
-					//	sh "docker build -t ${repository}:${commitId} ."
-					//	sh "docker push ${repository}:${commitId}"
-					//}
 				}
 			}
         }
