@@ -40,9 +40,9 @@ pipeline {
 				sh 'mvn clean test package'
             }
 			post {
-				always {
-					//junit 'target/surefire-reports/TEST-*.xml'
-				}
+				/*always {
+					junit 'target/surefire-reports/TEST-*.xml'
+				}*/
                 success {
 					echo "Built successfully"
 					container(name: 'kaniko', shell: '/busybox/sh') {
