@@ -25,9 +25,7 @@ pipeline {
     stages {
 		def commitId
         stage ('Extract') {
-            checkout scm
-            commitId = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-			echo commitId
+            sh 'printenv'
         }
         stage('Build') {
             steps {
