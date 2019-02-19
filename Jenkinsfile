@@ -26,7 +26,7 @@ pipeline {
         stage ('Extract') {
 			steps {
 				//sh 'printenv'
-				def commitId = $GIT_COMMIT
+				def commitId = "$GIT_COMMIT"
 				echo $commitId
 			}
         }
