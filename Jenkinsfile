@@ -45,7 +45,7 @@ pipeline {
 				}*/
                 success {
 					echo "Built successfully"
-					sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=mydockerregistry:5000/myorg/myimage'
+					sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=http://172.16.33.100:8081/repository/clouddv-docker'
 				}
 			}
         }
