@@ -5,3 +5,15 @@ kubectl create secret docker-registry kaniko-secret \
   --docker-server=172.16.33.100
   
 kubectl get secret myregistry-creds -ojsonpath="{.data['\.dockerconfigjson']}" | base64 -d
+
+
+kubectl create secret generic kaniko-secret --from-file=<path to kaniko-secret.json>
+#############~/.docker/config.json##############
+{
+    "auths": {
+        "http://172.16.33.100:8081/repository/clouddv-docker": {
+            "auth": "90584163-2761-390b-a1e9-61bc7cb9be12"
+        }
+    }
+}
+#############end of config.json#################
