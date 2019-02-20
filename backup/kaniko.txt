@@ -17,3 +17,6 @@ kubectl create secret generic kaniko-secret --from-file=<path to kaniko-secret.j
     }
 }
 #############end of config.json#################
+
+
+kubectl create secret docker-registry regcred --docker-server=http://172.16.33.100:8081/repository/clouddv-docker --docker-username=admin --docker-password=admin123 --docker-email=admin@example.org
