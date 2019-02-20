@@ -1,0 +1,7 @@
+kubectl create secret docker-registry myregistry-creds \
+  --docker-username=admin \
+  --docker-password=admin123  \
+  --docker-email=thaichau_it@live.com \
+  --docker-server=172.16.33.100
+  
+kubectl get secret myregistry-creds -ojsonpath="{.data['\.dockerconfigjson']}" | base64 -d
