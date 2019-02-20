@@ -1,4 +1,4 @@
-kubectl create secret docker-registry myregistry-creds \
+kubectl create secret docker-registry kaniko-secret \
   --docker-username=admin \
   --docker-password=admin123  \
   --docker-email=thaichau_it@live.com \
