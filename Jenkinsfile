@@ -36,7 +36,6 @@ pipeline {
 					def commitId = "${GIT_COMMIT}"
 					ENV_GIT_COMMIT = commitId.substring(34)
 				}
-				echo "${ENV_GIT_COMMIT}"
 				sh 'mvn clean package'
             }
 			post {
@@ -60,6 +59,7 @@ pipeline {
 						sh 'mvn -s ${MAVEN_SETTINGS} deploy'
 					}
 					
+					echo "${ENV_GIT_COMMIT}"
 					container(name: 'kaniko', shell: '/busybox/sh') {
 						sh '''#!/busybox/sh
 						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:"${ENV_GIT_COMMIT}"
