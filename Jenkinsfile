@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Building...'
 				//sh 'printenv'
-				sh 'mv backup/repository ~/.m2'
+				sh 'mv backup/repository /root/.m2'
 				
 				script{
 					def commitId = "${GIT_COMMIT}"
