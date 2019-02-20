@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Building...'
 				//sh 'printenv'
-				sh 'tar -xzvf repository.tar.gz'
+				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
 				
 				script{
