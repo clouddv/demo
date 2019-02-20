@@ -29,7 +29,8 @@ pipeline {
             steps {
                 echo 'Building...'
 				//sh 'printenv'
-				sh 'mv backup/repository /root/.m2'
+				sh 'tar -xzvf repository.tar.gz'
+				sh 'mv repository /root/.m2'
 				
 				script{
 					def commitId = "${GIT_COMMIT}"
