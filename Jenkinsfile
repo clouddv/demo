@@ -38,19 +38,11 @@ pipeline {
 				echo "${GIT_COMMIT}"
 				echo "${ENV_GIT_COMMIT}"
 				
-				sh 'mvn clean test package'
+				sh 'mvn clean package'
             }
 			post {
-				always {
-					junit 'target/surefire-reports/TEST-*.xml'
-				}
                 success {
 					echo "Built successfully"
-					container(name: 'kaniko', shell: '/busybox/sh') {
-						sh '''#!/busybox/sh
-						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${GIT_COMMIT}
-						'''
-					}
 				}
 			}
         }
@@ -67,6 +59,12 @@ pipeline {
 					echo "Test successfully"
 					configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
 						sh 'mvn -s ${MAVEN_SETTINGS} deploy'
+					}
+					
+					container(name: 'kaniko', shell: '/busybox/sh') {
+						sh '''#!/busybox/sh
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${GIT_COMMIT}
+						'''
 					}
 				}
 			}
