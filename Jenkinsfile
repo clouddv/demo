@@ -35,7 +35,8 @@ pipeline {
 				script{
 					def commitId = "${GIT_COMMIT}"
 					ENV_GIT_COMMIT = commitId.substring(34)
-				} 
+				}
+				echo "${ENV_GIT_COMMIT}"
 				sh 'mvn clean package'
             }
 			post {
