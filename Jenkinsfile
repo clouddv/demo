@@ -49,7 +49,7 @@ pipeline {
 						sh '''#!/busybox/sh
 						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${GIT_COMMIT}
 						'''
-					}
+					}aaa
 				}
 			}
         }
