@@ -21,16 +21,34 @@
     
     <name>demo</name>
 	
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>nfs-releases</name>
-			<url>http://172.16.33.200:8081/artifactory/demo</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>nfs-snapshots</name>
-			<url>http://172.16.33.200:8081/artifactory/demo</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>nfs-releases</name>
+            <url>http://172.16.33.200:8081/artifactory/demo</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>nfs-snapshots</name>
+            <url>http://172.16.33.200:8081/artifactory/demo</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mycompany.demo.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
