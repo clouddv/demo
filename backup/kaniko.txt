@@ -1,22 +1,33 @@
-kubectl create secret docker-registry kaniko-secret \
-  --docker-username=admin \
-  --docker-password=admin123  \
-  --docker-email=thaichau_it@live.com \
-  --docker-server=172.16.33.100
-  
-kubectl get secret myregistry-creds -ojsonpath="{.data['\.dockerconfigjson']}" | base64 -d
+# kubectl create secret docker-registry regcred --docker-server=http://172.16.33.100:8082 --docker-username=admin --docker-password=admin123 --docker-email=admin@example.org
 
+# vi <<EOF> pod.yaml
+.
+.
+.
+- name: kaniko
+    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /root
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: regcred
+          items:
+            - key: .dockerconfigjson
+              path: .docker/config.json
+<EOF>
 
-kubectl create secret generic kaniko-secret --from-file=<path to kaniko-secret.json>
-#############~/.docker/config.json##############
-{
-    "auths": {
-        "http://172.16.33.100:8081/repository/clouddv-docker": {
-            "auth": "90584163-2761-390b-a1e9-61bc7cb9be12"
-        }
-    }
+# vi <<EOF> Jenkinsfile
+container(name: 'kaniko', shell: '/busybox/sh') {
+	sh '''#!/busybox/sh
+	/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${GIT_COMMIT}
+	'''
 }
-#############end of config.json#################
-
-
-kubectl create secret docker-registry regcred --docker-server=http://172.16.33.100:8081/repository/clouddv-docker --docker-username=admin --docker-password=admin123 --docker-email=admin@example.org
+<EOF>

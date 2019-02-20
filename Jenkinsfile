@@ -40,14 +40,14 @@ pipeline {
 				sh 'mvn clean test package'
             }
 			post {
-				/*always {
+				always {
 					junit 'target/surefire-reports/TEST-*.xml'
-				}*/
+				}
                 success {
 					echo "Built successfully"
 					container(name: 'kaniko', shell: '/busybox/sh') {
 						sh '''#!/busybox/sh
-						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:1.3
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${GIT_COMMIT}
 						'''
 					}
 				}
