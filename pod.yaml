@@ -10,25 +10,7 @@ spec:
     - cat
     tty: true
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=/context/Dockerfile",
-           "--context=/context",
-           "--destination=172.16.33.100:8082/repository/clouddv-docker:1.3"]
-    volumeMounts:
-      - name: context
-        mountPath: /context
-      - name:  myregistry-creds
-        mountPath: /root/
-  restartPolicy: Never
-  volumes:
-    - name: myregistry-cred
-      projected:
-        sources:
-        - secret:
-            name: myregistry-cred
-            items:
-            - key: .dockerconfigjson
-              path: .docker/config.json
-    - name: context
-      configMap:
-        name: kaniko-context
+    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
+    command:
+    - /busybox/cat
+    tty: true
