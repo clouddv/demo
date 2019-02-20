@@ -23,7 +23,7 @@ spec:
     projected:
       sources:
       - secret:
-          name: regcred
+          name: kaniko-secret
           items:
             - key: .dockerconfigjson
               path: .docker/config.json

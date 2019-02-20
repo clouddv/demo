@@ -1,4 +1,4 @@
-# kubectl create secret docker-registry regcred --docker-server=http://172.16.33.100:8082 --docker-username=admin --docker-password=admin123 --docker-email=admin@example.org
+# kubectl create secret docker-registry kaniko-secret --docker-server=http://172.16.33.100:8082 --docker-username=admin --docker-password=admin123 --docker-email=admin@example.org
 
 # vi <<EOF> pod.yaml
 .
@@ -18,7 +18,7 @@
     projected:
       sources:
       - secret:
-          name: regcred
+          name: kaniko-secret
           items:
             - key: .dockerconfigjson
               path: .docker/config.json
