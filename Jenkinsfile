@@ -31,6 +31,7 @@ pipeline {
 				sh "echo ${params.GIT_BRANCH}"
             }
         }
+		/*
         stage('Test') {
             steps {
                 echo 'Testing...'
@@ -40,6 +41,6 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
-        }
+        }*/
     }
 }
