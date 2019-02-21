@@ -35,6 +35,7 @@ pipeline {
 					def commitId = "${GIT_COMMIT}"
 					ENV_GIT_COMMIT = commitId.substring(34)
 				}
+				echo "GIT_COMMIT=${GIT_COMMIT}"
 				echo "ENV_GIT_COMMIT=${ENV_GIT_COMMIT}"
             }
         }
