@@ -24,18 +24,16 @@ pipeline {
 		string (name: 'GIT_BRANCH',           defaultValue: 'branch2',  description: 'Git branch to build')
 		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
 	}
+	
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
 				//sh 'printenv'
-				echo "AAAAAAAAAAAAAAAAAA"
-				script {
-                    branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
-                    echo "Global branch set to ${branch}"
-					echo "AAAAAAAAAAAAAAAAAA"
-					echo "${GIT_BRANCH}"
-                }
+				script{
+					echo DEPLOY_TO_PROD
+					echo "$DEPLOY_TO_PROD"
+				}
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
