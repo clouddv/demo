@@ -32,9 +32,7 @@ pipeline {
 				echo "AAAAAAAAAAAAAAAAAA"
 				script {
                     branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
-                    ID = "${IMAGE_NAME}-${DOCKER_TAG}-${branch}"
-
-                    echo "Global ID set to ${ID}"
+                    echo "Global branch set to ${branch}"
                 }
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
