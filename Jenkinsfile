@@ -70,8 +70,9 @@ pipeline {
 					echo 'AAAAAAAAAAAAAAAAAA - ENV_GIT_COMMIT'
 					echo "${ENV_GIT_COMMIT}"
 					container(name: 'kaniko', shell: '/busybox/sh') {
+						echo "${ENV_GIT_COMMIT}"
 						sh '''#!/busybox/sh
-						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:${ENV_GIT_COMMIT}
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:"${ENV_GIT_COMMIT}"
 						'''
 					}
 				}
