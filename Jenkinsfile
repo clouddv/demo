@@ -33,6 +33,8 @@ pipeline {
 				script {
                     branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
                     echo "Global branch set to ${branch}"
+					echo "BBBBBBBBBBBBBBBBBBBBB"
+					echo "${GIT_BRANCH}"
                 }
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
