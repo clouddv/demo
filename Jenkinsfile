@@ -29,6 +29,7 @@ pipeline {
             steps {
                 echo 'Building...'
 				sh "echo ${params.GIT_BRANCH}"
+				echo "${params.DEPLOY_TO_PROD}"
             }
         }
 		/*
