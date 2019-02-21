@@ -33,7 +33,7 @@ pipeline {
 				script {
                     branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
                     echo "Global branch set to ${branch}"
-					echo "BBBBBBBBBBBBBBBBBBBBB"
+					echo "AAAAAAAAAAAAAAAAAA"
 					echo "${GIT_BRANCH}"
                 }
 				
