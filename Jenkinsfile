@@ -28,8 +28,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-				sh "echo ${params.GIT_BRANCH}"
-				echo "${params.DEPLOY_TO_PROD}"
+				echo "GIT_BRANCH=${params.GIT_BRANCH}"
+				echo "DEPLOY_TO_PROD=${params.DEPLOY_TO_PROD}"
+				
+				script{
+					def commitId = "${GIT_COMMIT}"
+					ENV_GIT_COMMIT = commitId.substring(34)
+				}
+				echo "ENV_GIT_COMMIT=${ENV_GIT_COMMIT}"
             }
         }
 		/*
