@@ -30,9 +30,9 @@ pipeline {
                 echo 'Building...'
 				//sh 'printenv'
 				echo "AAAAAAAAAAAAAAAAAA - GIT_BRANCH"
-				echo ${GIT_BRANCH}
+				echo "${GIT_BRANCH}"
 				echo "AAAAAAAAAAAAAAAAAA - DEPLOY_TO_PROD"
-				echo ${DEPLOY_TO_PROD}
+				echo "${DEPLOY_TO_PROD}"
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
