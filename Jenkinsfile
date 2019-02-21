@@ -29,10 +29,13 @@ pipeline {
             steps {
                 echo 'Building...'
 				//sh 'printenv'
-				echo "AAAAAAAAAAAAAAAAAA - GIT_BRANCH"
-				echo "${GIT_BRANCH}"
-				echo "AAAAAAAAAAAAAAAAAA - DEPLOY_TO_PROD"
-				echo "${DEPLOY_TO_PROD}"
+				echo "AAAAAAAAAAAAAAAAAA"
+				script {
+                    branch = GIT_BRANCH.replaceAll('/', '-').replaceAll('\\*', '-')
+                    ID = "${IMAGE_NAME}-${DOCKER_TAG}-${branch}"
+
+                    echo "Global ID set to ${ID}"
+                }
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
