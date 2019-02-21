@@ -21,8 +21,8 @@ pipeline {
 		timeout(time: 60, unit: 'MINUTES')
 	}
 	parameters {
-		string (name: 'GIT_BRANCH',           defaultValue: 'branch2',  description: 'Git branch to build')
-		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
+		string (name: 'GIT_BRANCH', defaultValue: 'branch2',  description: 'Git branch to build')
+		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false, description: 'If build and tests are good, proceed and deploy to production without manual approval')
 	}
     stages {
         stage('Build') {
