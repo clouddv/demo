@@ -20,10 +20,6 @@ pipeline {
 		// Build auto timeout
 		timeout(time: 60, unit: 'MINUTES')
 	}
-	parameters {
-		string (name: 'GIT_BRANCH',           defaultValue: 'branch2',  description: 'Git branch to build')
-		booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
-	}
 	
     stages {
         stage('Build') {
@@ -36,6 +32,8 @@ pipeline {
 					echo GIT_BRANCH
 					echo "${GIT_BRANCH}"
 				}
+				
+				sh "echo ${params.GIT_BRANCH}"
 				
 				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
