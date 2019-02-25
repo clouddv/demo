@@ -13,35 +13,17 @@ pipeline {
 		SONAR_URL = "http://172.16.33.100:9000"
         SONAR_USERNAME = "admin"
         SONAR_PASSWORD = "12345667"
-		
-		ENV_GIT_COMMIT = ""
     }
 	options {
 		// Build auto timeout
 		timeout(time: 60, unit: 'MINUTES')
 	}
-	
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
-				//sh 'printenv'
-				script{
-					echo DEPLOY_TO_PROD
-					echo "$DEPLOY_TO_PROD"
-					echo GIT_BRANCH
-					echo "${GIT_BRANCH}"
-				}
-				
-				sh "echo ${params.GIT_BRANCH}"
-				
 				sh 'tar -xzvf backup/repository.tar.gz'
 				sh 'mv repository /root/.m2'
-				
-				script{
-					def commitId = "${GIT_COMMIT}"
-					ENV_GIT_COMMIT = commitId.substring(34)
-				}
 				sh 'mvn clean package'
             }
 			post {
@@ -65,12 +47,9 @@ pipeline {
 						sh 'mvn -s ${MAVEN_SETTINGS} deploy'
 					}
 					
-					echo 'AAAAAAAAAAAAAAAAAA - ENV_GIT_COMMIT'
-					echo "${ENV_GIT_COMMIT}"
 					container(name: 'kaniko', shell: '/busybox/sh') {
-						echo "${ENV_GIT_COMMIT}"
 						sh '''#!/busybox/sh
-						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:"${ENV_GIT_COMMIT}"
+						/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=172.16.33.100:8082/repository/clouddv-docker:"${GIT_COMMIT}"
 						'''
 					}
 				}
